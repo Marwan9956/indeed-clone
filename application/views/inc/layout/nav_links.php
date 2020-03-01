@@ -1,32 +1,20 @@
 <!--Site Navigation Links -->
-<div class="logo"><p><a href="<?php echo base_url();?>"> Php bookmark </a> </p></div>
-<nav>
-	<ul class="nav navbar-nav">
-		<?php if(!$this->session->userdata("logged_in")):?>
-		<li>
-			<a href="<?php echo base_url();?>">Home</a>
-		</li>
-		<li><a href="<?php echo base_url("register");?>">Sign up</a></li>
-		<?php else:?>
-		<li>
-			<a href="<?php echo base_url('profile');?>">Profile</a>
-		</li>
-		<li>
-			<a href="<?php echo base_url();?>">Bookmark</a>
-		</li>
-		<li>
-			<a href="<?php echo base_url('table/add');?>">Add</a>
-		</li>
-		<?php endif;?>
-	</ul>
-</nav>		  
-<?php if(!$this->session->userdata("logged_in")):?>
-	<!-- Login Form -->
-	<div class="search-box">
-		<?php $this->load->view("inc/layout/login_form_nav");?>
+<nav class="nav-main">
+	<div class="logo">Logo</div>
+	<div class="left-nav">
+		<a href="#">Find jobs</a>
 	</div>
-<?php else:?>
-	<?php $this->load->view("inc/layout/login_member_nav");?>
-<?php endif;?>
+	<div class="right-nav">
+		<a href="#">
+			Upload your resume
+		</a>
+		<a href="#">
+			Sign in
+		</a>
+		<a href="#">
+			Employers / Post Job
+		</a>
+	</div>
+</nav>
 	
 	

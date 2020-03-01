@@ -1,13 +1,19 @@
 <!----------------------------------------------------------------------------->
 <!---Footer--------------->
-<footer class="footer">
-	<!---Footer Nav--------------->
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-		<!---footer copyright&web title--------------->
-		<div class="container">
-			<p class="text-muted"><span><?php echo date("Y"); ?> &copy; </span><p>
-		</div>
-	</nav>
+<footer>
+	<div class="container">
+		<!---Footer Nav--------------->
+		<nav class="nav-footer">
+			<a href="#">Browse Jobs</a>
+			<a href="#">Browse Companies</a>
+			<a href="#">Work at Indeed</a>
+			<a href="#">Countries</a>
+			<a href="#">About</a>
+			<a href="#">Help Center</a>
+			<!---footer copyright&web title--------------->
+			<span><?php echo date("Y"); ?> &copy; </span>
+		</nav>
+	</div>
 </footer>
 </body>
 </html>

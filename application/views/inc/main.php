@@ -1,6 +1,6 @@
 <?php $this->load->view('inc/layout/header');?>
 	<!---container--------------->
-	<section class="container fullContainer">
+	<div class="container">
 		<?php $this->load->view($view_content);?>
-	</section>
+	</div>
 <?php $this->load->view('inc/layout/footer');?>

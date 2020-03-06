@@ -9,6 +9,7 @@
 	--btn-bg-primary : #0586c2;
 	--btn-bg-pri-hov : #0ba0e5;
 	--btn-upload     : #f1f1f1;
+	--bg-gray        : #f4f4f4;
 	
 	/* link tag */
 	--link-col       : #7c7c7c;
@@ -66,6 +67,29 @@ body{
 	margin:25px 0 25px 15%;
 	width:50%;
 }
+.btn-signin{
+	width:85%;
+	color:var(--btn-bg-primary);/*#171717;*/
+	display:block;
+	margin:15px auto;
+	border-color:var(--btn-bg-primary);
+	padding: 11px 0px;
+	text-align:center;
+	border-radius:15px;
+}
+.btn-signin:hover{
+	border: 1px solid var(--btn-bg-primary);
+	padding: 11px 0px;
+	color:#026b9b;
+}
+.btn-signin-primary{
+	background-color:var(--btn-bg-primary);
+	color:#fff;
+}
+.btn-signin-primary:hover{
+	background-color:#026898;
+	color:#fff;
+}
 
 input:focus, textarea:focus, select:focus{
         outline: none;
@@ -78,6 +102,9 @@ h2{
 	margin:4px 0 25px 0;
 	padding:25px 0;
 	display:block;
+}
+h3{
+	color:var(--p);
 }
 p{
 	color:var(--p);
@@ -269,7 +296,42 @@ input[type="file"] {
 .user-type-widget p{
 	margin-bottom:30px;
 }
+/***********************Sign in Widget **********/
+.checkbox-group{
+	margin:5px 0 18px 0;
+}
+.checkbox-group label{
+	font-size:0.85em;
+}
 
+.sign-in-section{
+	margin-top:35px;
+}
+
+.sign-in-widget{
+	background-color:var(--bg-gray);
+	width:40%;
+	margin: 0 auto;
+	padding:25px;
+	border-radius: 8px;
+}
+.sign-in-widget .input-group{
+	width:100%;
+	display:block;
+	
+}
+.sign-in-widget .input-group input{
+	width:95%;
+}
+.sign-in-widget .input-group label{
+	display:block;
+	margin:8px 0;
+	font-size:1em;
+}
+
+.sign-in-widget select{
+	width:85%;
+}
 /***********************Footer **************/
 footer{
 	display:flex;

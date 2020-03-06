@@ -6,3 +6,4 @@ class Exception_library extends Exception{
 }
 class upload_exception extends Exception{}
 class database_exception extends Exception{}
+class session_exception extends Exception{}

@@ -5,15 +5,28 @@
 		<a href="#">Find jobs</a>
 	</div>
 	<div class="right-nav">
-		<a href="#">
-			Upload your resume
-		</a>
-		<a href="#">
-			Sign in
-		</a>
-		<a href="#">
-			Employers / Post Job
-		</a>
+		<?php if($this->session->has_userdata('user_type')):?>
+			<?php if($this->session->user_type == 'company'):?>
+				<a href="<?php echo base_url('member/jobpost');?>">
+					Employers / Post Job
+				</a>
+			<?php else:?>
+				<a href="#">
+					Upload your resume
+				</a>
+			<?php endif;?>
+		<?php endif;?>
+		
+		
+		<?php if(! $this->session->has_userdata('user_id')):?>
+			<a href="<?php echo base_url('member/login');?>">
+				Sign in
+			</a>
+			<?php else:?>
+			<a href="<?php echo base_url('member/logout');?>">
+				Sign out
+			</a>
+		<?php endif;?>
 	</div>
 </nav>
 	

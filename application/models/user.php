@@ -119,4 +119,121 @@ class User extends CI_Model{
 		$query = $this->db->get();
 		return $query->row();
 	}
+	
+	/**
+	 * login function : handle login functionality
+	 * @param  0
+	 * @return true if user login and setting user data user data session 
+	 * @throws database exception
+	 */
+	public function login(){
+		$result ="";
+		$userType = $this->input->post("userType");
+		$tableName = "";
+		$email = $this->input->post("email");
+		$password = $this->input->post("password");
+		
+		if($userType == "employee"){
+			$tableName = "users";
+		}else if($userType == "company"){
+			$tableName = "company";
+		}else{
+			throw new database_exception("You Provide Wrong user Type try again with correct value");
+		}
+		
+		$this->db->select("*");
+		$this->db->from($tableName);
+		$this->db->where("email" , $email);
+		$query = $this->db->get();
+		$result = $query->row();
+		
+		if($result){
+			if(password_verify($password,$result->password)){
+				$this->session->set_userdata('user_type', $userType);
+				$this->setUserData($result);
+				if($this->session->has_userdata('user_id')){
+					return true;
+				}else{
+					throw new database_exception("Server Error please try again");
+				}
+			}else{
+				throw new database_exception("You Provide Wrong user information try again");
+			}
+		}else{
+			throw new database_exception("You Provide Wrong user information try again");
+		}
+	}
+	
+	/**
+	 * login function : handle logout functionality
+	 * @param  0
+	 * @return true if user logout and destroy  user data session
+	 * @throws session exception
+	 */
+	public function logout(){
+		$data = [
+				'user_type',
+				'user_id',
+				'first_name',
+				'last_name',
+				'username',
+				'email',
+				'country_code',
+				'phone_number',
+				'resume_url',
+				'profile_img',
+				'company_id',
+				'current_status_id',
+				'register_time'
+		];
+		$this->session->unset_userdata($data);
+		if($this->session->has_userdata('user_id')){
+			throw new session_exception("We couldn't log you out at the moment please try again .");
+		}
+	}
+	
+	/**
+	 * setUserData : set user session information
+	 * @param  $user object data from database 
+	 * 
+	 */
+	private function setUserData($user){
+		if($this->session->user_type == 'employee'){
+			$data = [
+					'user_id'    => $user->id,
+					'first_name' => $user->first_name ,
+					'last_name'  => $user->last_name,
+					'username'   => $user->username,
+					'email'      => $user->email,
+					'country_code' => $user->country_code,
+					'phone_number' => $user->phone_number,
+					'resume_url'   => $user->resume_url,
+					'profile_img'  => $user->profile_img,
+					'company_id'   => $user->company_id,
+					'current_status_id' => $user->current_status_id,
+					'register_time' => $user->register_time
+			];
+		}else{
+			$data = [
+					'user_id'    => $user->id,
+					'name'       => $user->name ,
+					'logo_url'   => $user->logo_url,
+					'description'   => $user->description,
+					'email'      => $user->email,
+					'website_url'  => $user->website_url,
+					'phone_number' => $user->phone_number,
+					'country_code' => $user->country_code,
+					'industry_id'  => $user->industry_id,
+					'employee_count'  => $user->employee_count,
+					'register_time' => $user->create_date
+			];
+			
+		}
+		$this->session->set_userdata($data);
+		return ;
+	}
+	
+	
 }
+
+

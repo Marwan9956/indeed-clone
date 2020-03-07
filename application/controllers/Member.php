@@ -89,8 +89,72 @@ class Member extends CI_Controller{
 		
 	}
 	
-	
+	/**
+	 * handle Job post route 
+	 * @access public
+	 * @param  0
+	 * @return ///redirect
+	 */
 	public function jobpost(){
+		$config = array(
+				array(
+						'field' => 'title',
+						'label' => 'Job Title',
+						'rules' => 'required|min_length[4]'
+				),
+				array(
+						'field' => 'required_skills',
+						'label' => 'Required Skills',
+						'rules' => 'required|min_length[6]'
+				),
+				array(
+						'field' => 'nice_skills',
+						'label' => 'Nice skills',
+						'rules' => 'required|min_length[6]'
+				),
+				array(
+						'field' => 'description',
+						'label' => 'Description',
+						'rules' => 'required|min_length[20]'
+				)
+		);
+		
+		$this->form_validation->set_rules($config);
+		
+		if(!$this->session->has_userdata('user_type')){
+			$this->session->set_flashdata("Err_msg","Your not a member sign in first ");
+			redirect(base_url());
+		}else{
+			if($this->session->user_type == "company"){
+				if($this->form_validation->run() == false){
+					$data['title']		  =  "Post new job";
+					$data['view_content'] =  'job-post';
+					$this->load->view('inc/main',$data);
+				}else{
+					//Add job 
+					try{
+						$this->company->add_job();
+						$this->session->set_flashdata('msg','your job post added successfully');
+						//Change direct to company profile page 
+						redirect(base_url());
+						
+					}catch (database_exception $e){
+						
+						$this->session->set_flashdata('Err_msg',$e->getMessage());
+						redirect(base_url('member/jobpost'));
+						
+					}catch (Exception $e){
+						
+						$this->session->set_flashdata('Err_msg','Server Error please try again later');
+						redirect(base_url('member/jobpost'));
+					}
+					
+				}
+			}else{
+				$this->session->set_flashdata("Err_msg","Your employee not a company only company can post a job .");
+				redirect(base_url());
+			}
+		}
 		
 	}
 }

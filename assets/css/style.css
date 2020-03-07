@@ -59,8 +59,14 @@ body{
 	color:#fff;
 	padding: 11px 28px;
 }
-.btn-md{
-	
+.btn-middle{
+	display:block;
+	margin: 0 auto;
+}
+.btn-left{
+	display:block;
+	margin-left:16%;
+	width:30%;
 }
 .btn-lg{
 	display:block;
@@ -132,9 +138,33 @@ label{
 	color:var(--lbl);
 }
 
+textarea{
+	outline: none;
+	resize:none;
+	overflow:auto;
+	border:var(--bor);
+	border-radius:var(--bor-radius);
+	display:block;
+	width:85%;
+	margin:20px auto;
+	height:320px;
+	padding: 20px;
+	font-size:1.2em;
+	color:var(--p);
+	
+}
+textarea:focus{
+	border-color:var(--bor-focus);
+}
+
 .main-col{
 	margin: 115px auto 25px auto;
 }
+
+.twinty-margin{
+	margin : 20px 0;
+}
+
 /***********************************Navigation menu *********************/
 .nav-main{
 	display:flex;
@@ -295,6 +325,16 @@ input[type="file"] {
 }
 .user-type-widget p{
 	margin-bottom:30px;
+}
+
+/***********************job post ***************/
+.list{
+	display:block;
+}
+.list input{
+	display:block;
+	width:85%;
+	margin:20px auto;
 }
 /***********************Sign in Widget **********/
 .checkbox-group{

@@ -6,7 +6,7 @@
 	<h2>Job new Post:</h2>
 	<?php $this->load->view('inc/layout/message');?>
 	
-	<form id="jobpost_from" method="post" action="<?php echo base_url("member/jobpost");?>" >
+	<form id="jobpost_from" method="post" action="<?php echo base_url("member/jobpost?p=1;");?>" >
 		<div class="input-group list">
 			<label for="title">Title: </label>
 			<input type="text" name="title" value="" id="title" />

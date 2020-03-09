@@ -1,6 +1,7 @@
 :root{
 	/* borders */
 	--bor-radius     : 6px;
+	--bor-radius-round: 10px;
 	--bor            : 1px solid #e5e5e5;
 	--bor-btn-prim   : 1px solid #0791d1;
 	--bor-focus      : #96cae3;
@@ -20,7 +21,8 @@
 	/* text */
 	--lbl            : #5e5e5e;
 	--p 			 : #4b4b4b;
-	--span           : #9f9f9f
+	--span           : #9f9f9f;
+	--softer-color   : #d2d2d2;
 }
 *{
 	box-sizing: border-box;
@@ -88,6 +90,7 @@ body{
 	padding: 11px 0px;
 	color:#026b9b;
 }
+
 .btn-signin-primary{
 	background-color:var(--btn-bg-primary);
 	color:#fff;
@@ -97,20 +100,43 @@ body{
 	color:#fff;
 }
 
+.btn-subscribe{
+	width:32%;
+	font-weight:normal;
+	color:var(--btn-bg-primary);/*#171717;*/
+	display:block;
+	margin-left: 5px;
+	border-color:var(--btn-bg-primary);
+	padding: 8px 0px;
+	text-align:center;
+	border-radius:10px;
+}
+.btn-subscribe:hover{
+	border: 1px solid var(--btn-bg-primary);
+	padding: 11px 0px;
+	color:#026b9b;
+}
+
 input:focus, textarea:focus, select:focus{
         outline: none;
 }
 
 h1{
-	
+	color:var(--p);
 }
 h2{
 	margin:4px 0 25px 0;
 	padding:25px 0;
 	display:block;
 }
-h3{
+h3 , h4 , h5 ,h6{
 	color:var(--p);
+}
+h4{
+	
+}
+h5{
+	
 }
 p{
 	color:var(--p);
@@ -165,6 +191,14 @@ textarea:focus{
 	margin : 20px 0;
 }
 
+span{
+	color:var(--span);
+	font-size:0.75em;
+}
+
+hr{
+	
+}
 /***********************************Navigation menu *********************/
 .nav-main{
 	display:flex;
@@ -235,9 +269,56 @@ textarea:focus{
 	border:none;
 }
 
+.sm-search-box{
+	height:30px;
+}
+.sm-search-box form{
+	height:100%;
+	justify-content: start;
+}
 
+.sm-search-box input[type='text']{
+	padding:0;
+	
+}
+.sm-search-box input[type='text']::placeholder{
+	font-size:0.8em;
+	color:var(--softer-color );
+}
 
-/***************** */
+.sm-search-box label{
+	font-size: 0.95em;
+	font-weight:normal;
+}
+.sm-search-box .btn-primary{
+	padding:0 25px;
+	margin-left:0 !important;
+}
+/*************************************Layout *******************************/
+.row{
+	padding-left: 25px;
+	padding-top   :25px;
+	padding-bottom:35px;
+	border-bottom: var(--bor);
+}
+.row-col-3{
+	display:flex;
+	box-sizing:border-box;
+}
+.row-col-3 > div{
+	flex-grow:1;
+	flex-basis:30%;
+	padding:25px;
+}
+.row-col-3 > div:first-child{
+	flex-basis:15%;
+}
+.row-col-3 > .col-main{
+	flex-grow : 3;
+	flex-basis:55%;
+}
+
+/****************************Widgets ***** */
 .post-job-widget{
 	text-align:center;
 	margin-top:65px;
@@ -249,7 +330,48 @@ textarea:focus{
 	border-radius:var(--bor-radius);
 }
 
+.job-post{
+	border:var(--bor);
+	padding:18px;
+	border-radius:var(--bor-radius-round);
+	margin: 15px 0;
+}
 
+.subscription-widget{
+	padding : 14px;
+	padding-top:5px;
+	border:var(--bor);
+	border-radius:var(--bor-radius);
+	border-top: 4px solid #e3762d;
+}
+.subscription-widget form{
+	display:block;
+}
+.subscription-widget .input-group{
+	margin-top:7px;
+	display:block;
+	width:100%;
+}
+.subscription-widget .input-group input[type='email']{
+	width:80%;
+}
+.subscription-widget label{
+	font-size:0.9em;
+	margin-bottom:10px;
+	display:block;
+}
+.subscribe-info-txt{
+	color : var(--span);
+	font-size: 0.7em;
+	padding : 10px;
+	line-height:1.4em;
+}
+.subscription-widget h6{
+	border-bottom:var(--bor);
+	margin: 0;
+	padding: 14px 0;
+	color:var(--p);
+}
 
 /************************Register Box *****************/
 .register-box{

@@ -41,6 +41,11 @@ class Company extends CI_Model{
 		}
 	}
 	
+	/**
+	 * Helper function to add the skills sperated with | pipe
+	 * @param string $skills_type
+	 * @return string for skills
+	 */
 	private function returnSkills($skills_type){
 		$skills = $this->input->post($skills_type);
 		$newElment = '';

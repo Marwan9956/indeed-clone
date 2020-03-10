@@ -40,6 +40,10 @@ body{
 	margin: 0 auto;
 	flex: 1;
 }
+.full-container{
+	width:100%;
+	flex:1;
+}
 .btn{
 	padding: 2px 15px;
 	border-radius: var(--bor-radius);
@@ -335,6 +339,7 @@ hr{
 	padding:18px;
 	border-radius:var(--bor-radius-round);
 	margin: 15px 0;
+	cursor:pointer;
 }
 
 .subscription-widget{
@@ -494,6 +499,35 @@ input[type="file"] {
 .sign-in-widget select{
 	width:85%;
 }
+
+/******************************Animation **********************/
+#display-single-job{
+	opacity:0;
+	transition: all 0.4s ease-in-out;
+}
+/*
+.job-post-single-widget{
+	opacity:0;
+	transition: all 1s ease-out;
+}
+@keyframes slidein{
+	from{
+		opacity: 0;
+	}
+	to{
+		opacity: 1;
+	}
+}
+
+@keyframes slideOut{
+	from{
+		opacity: 1;
+	}
+	to{
+		opacity: 0;
+	}
+}
+*/
 /***********************Footer **************/
 footer{
 	display:flex;

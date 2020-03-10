@@ -1,3 +1,4 @@
+
 <div class="row">
 	<section class="search-box sm-search-box">
 	<?php $this->load->view('inc/widgets/search-box-form');?>
@@ -26,17 +27,22 @@
 		<hr>
 		<span> Page 1 of 10 </span>
 		<span> Total jobs count 19,200 jobs </span>
-		
-		<!-- Here is the loop -->
-		<?php $this->load->view('inc/widgets/job-post');?>
-		
+		<?php if($jobs):?>
+			<!-- Here is the loop -->
+			<?php $this->load->view('inc/widgets/job-post-small-widget');?>
+		<?php endif;?>
+			<div>
+				<?php echo $this->pagination->create_links(); ?>
+			</div>
 		<!-- loop -->
 	</div>
 	
 	<div>
 		<?php $this->load->view('inc/widgets/subscription-widget');?>
 		
+		
 		<!--- here when user click on job post it display the full job details -->
+		<div id="display-single-job"></div>
 		
 		
 	</div>

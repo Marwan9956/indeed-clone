@@ -35,7 +35,7 @@ class Jobs extends  CI_Controller{
 		 * @var Ambiguous $config
 		 */
 		/*************************************************************/
-		$config['per_page'] = 20;
+		$config['per_page'] = 10;
 		$config['page'] = $this->input->get('start');
 		$config['enable_query_strings']= true;
 		$config['page_query_string'] = true;
@@ -73,6 +73,25 @@ class Jobs extends  CI_Controller{
 			}catch (Exception $e){
 				
 			}
+		}
+	}
+	
+	
+	public function singleJob(){
+		$job_id = $this->input->get('job_id');
+		if(gettype(intval($job_id)) == 'integer'){
+			try{
+				$singleJob= $this->jobs_model->getSingleJob($job_id);
+				//echo json_encode($singleJob);
+				echo json_encode($singleJob);
+			}catch (database_exception $e){
+				http_response_code(404);
+			}catch (Exception $e){
+				http_response_code(404);
+			}
+			
+		}else{
+			echo 'No';
 		}
 	}
 	

@@ -1,5 +1,5 @@
 <?php $this->load->view('inc/layout/message');?>
-<script src="<?php echo base_url('assets/js/ajax.js');?>"> </script>
+
 <?php foreach ($jobs as $job):?>
 
 <div id="<?php echo $job->id; ?>" class="job-post">
@@ -23,13 +23,11 @@
 	
 	<div class="job-post-footer">
 		<p><?php echo $job->create_date;?> 30+ days ago .</p>
-		<!-- JAVASCRIPT -->
-		<input type="hidden" name="job_id" id="inp_job_id" 
-		value="<?php echo $job->id; ?>" />
-		<form method ="get" action ="<?php echo base_url('/jobs') . $job->id ; ?>" >
-			<a href="#">Save job .</a>
-			<a href="#">more ...</a>
-		</form>
+		
+		
+		<a href="#">Save job .</a>
+		<a href="#">more ...</a>
+		
 	</div>
 </div>
 <?php endforeach;?>

@@ -23,6 +23,8 @@
 	--p 			 : #4b4b4b;
 	--span           : #9f9f9f;
 	--softer-color   : #d2d2d2;
+	--very-light     : #f1f1f1;
+	--li             : #808080;
 }
 *{
 	box-sizing: border-box;
@@ -117,7 +119,8 @@ body{
 }
 .btn-subscribe:hover{
 	border: 1px solid var(--btn-bg-primary);
-	padding: 11px 0px;
+	padding: 8px 0px;
+	background-color:var(--bg-gray);
 	color:#026b9b;
 }
 
@@ -202,6 +205,10 @@ span{
 
 hr{
 	
+}
+
+ul li{
+	color:var(--li);
 }
 /***********************************Navigation menu *********************/
 .nav-main{
@@ -298,6 +305,27 @@ hr{
 	padding:0 25px;
 	margin-left:0 !important;
 }
+
+#countriesList{
+	position:absolute;
+	//top:209px;
+	border:var(--bor);
+	
+}
+#countriesList ul{
+	background-color:#fff;
+	margin:0;
+	padding:0;
+}
+#countriesList li{
+	list-style:none;
+	padding: 11px 0 11px 60px;
+	font-size:0.8em;
+}
+#countriesList li:hover{
+	background-color:var(--very-light);
+}
+
 /*************************************Layout *******************************/
 .row{
 	padding-left: 25px;
@@ -319,7 +347,7 @@ hr{
 }
 .row-col-3 > .col-main{
 	flex-grow : 3;
-	flex-basis:55%;
+	flex-basis:40%;
 }
 
 /****************************Widgets ***** */
@@ -348,6 +376,7 @@ hr{
 	border:var(--bor);
 	border-radius:var(--bor-radius);
 	border-top: 4px solid #e3762d;
+	z-index: -1;
 }
 .subscription-widget form{
 	display:block;
@@ -500,34 +529,54 @@ input[type="file"] {
 	width:85%;
 }
 
-/******************************Animation **********************/
+/***********************single Job Widget **********************/
 #display-single-job{
 	opacity:0;
 	transition: all 0.4s ease-in-out;
+	position:fixed;
+	border:var(--bor);
+	border-radius:var(--bor-radius);
+	padding:15px;
+	margin: 10px 0 ;
+	margin-right:10px;
+	bottom:10px;
+	top:35%;
+	overflow:auto;
+	height:460px;
+	box-sizing:border-box;
+	z-index:4;
 }
-/*
-.job-post-single-widget{
-	opacity:0;
-	transition: all 1s ease-out;
-}
-@keyframes slidein{
-	from{
-		opacity: 0;
-	}
-	to{
-		opacity: 1;
-	}
+#close{
+	position: absolute ;
+	left: 90%;
+	bottom:90%;
+	display:block;
+	cursor:pointer;
+	 z-index: 5;
+	
 }
 
-@keyframes slideOut{
-	from{
-		opacity: 1;
-	}
-	to{
-		opacity: 0;
-	}
+.job-post-single-widget{
+	
 }
-*/
+
+.job-post-single-widget h3, .job-post-single-widget h4{
+	font-size:1.2em;
+}
+
+.job-post-footer p{
+	color:var(--span);
+	font-size:0.75em;
+	display:inline-block;
+}
+.job-post-footer a{
+	font-size:0.75em;
+	color:var(--btn-bg-primary);
+}
+.job-post-footer a:hover{
+	border:none;
+	color: var(--btn-bg-pri-hov);
+}
 /***********************Footer **************/
 footer{
 	display:flex;

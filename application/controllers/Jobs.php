@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author marwan
  * 
  */
-
+use \database_exception as database_exception;
 class Jobs extends  CI_Controller{
 	public  function __construct(){
 		parent::__construct();
@@ -27,7 +27,7 @@ class Jobs extends  CI_Controller{
 	
 	public function search(){
 		$q = $this->input->get('q' , true);
-		$city = $this->input->get('city' , true);
+		$country = $this->input->get('country' , true);
 		$start = $this->input->get('start');
 		
 		/**
@@ -41,14 +41,15 @@ class Jobs extends  CI_Controller{
 		$config['page_query_string'] = true;
 		$config['query_string_segment'] = 'start';
 		$config['total_rows'] = $this->jobs_model->jobsCount($q);
-		$config['base_url'] = base_url('jobs/search?&q='. $q.'&city='. $city );
+		$config['base_url'] = base_url('jobs/search?&q='. $q.'&country='. $country);
 		
 		$config['full_tag_open'] = '<p>';
 		$config['full_tag_close'] = '</p>';
 		/*************************************************************/
 		
-		$data['jobs'] = $this->jobs_model->getJobs($q,$config['per_page'],$start);
 		
+		$data['title']		  =  "Job Search";
+		$data['view_content'] = 'search';
 		/************************Initialize Pagination ************/
 		$this->pagination->initialize($config);
 		
@@ -61,17 +62,15 @@ class Jobs extends  CI_Controller{
 		}else{
 			//implement Search 
 			try{
-				//$data = $this->jobs_model->getJobs($q, $config['per_page'] , $start);
-				$data['title']		  =  "Job Search";
-				$data['view_content'] = 'search';
-			
+				$data['jobs'] = $this->jobs_model->getJobs($q , $country , $config['per_page'] , $start);
 				$this->load->view('inc/main-no-container',$data);
-				
-				//echo $this->pagination->create_links();
 			}catch (database_exception $e){
-				
+				$this->session->set_flashdata('Err_msg',$e->getMessage());
+				$this->load->view('inc/main-no-container',$data);
+				redirect(base_url());
 			}catch (Exception $e){
-				
+				$this->session->set_flashdata('Err_msg','Server Error please try again ');
+				redirect(base_url('register/employee'));
 			}
 		}
 	}
@@ -93,6 +92,35 @@ class Jobs extends  CI_Controller{
 		}else{
 			echo 'No';
 		}
+	}
+	
+	
+	public function countries(){
+		/*
+		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
+		{
+			exit;
+		}*/
+		/**
+		 * Check if it is ajax request 
+		 */
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+			// this is ajax request, do something
+			try{
+				$key = $this->input->get('key');
+				if(!empty(trim($key) )){
+					$countries = $this->jobs_model->getAllCountries($key);
+					echo json_encode($countries);
+				}
+			}catch (database_exception $e){
+				http_response_code(404);
+			}catch (Exception $e){
+				http_response_code(404);
+			}
+		}
+		
+		
+		
 	}
 	
 }

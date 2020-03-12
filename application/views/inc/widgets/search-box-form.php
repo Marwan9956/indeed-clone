@@ -5,7 +5,7 @@
 	</div>
 	<div class="input">
 		<label> Where </label>
-		<input type="text" placeholder="City , state , or zip code" name="city">
+		<input type="text" id="searchCountries" placeholder="Country" name="country">
 	</div>
 	
 	<input type="submit"  value="Find Jobs" class="btn btn-primary btn-find" />

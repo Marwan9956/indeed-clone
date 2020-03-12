@@ -1,4 +1,4 @@
-
+<script src="<?php echo base_url('assets/js/ajax.js');?>"> </script>
 <div class="row">
 	<section class="search-box sm-search-box">
 	<?php $this->load->view('inc/widgets/search-box-form');?>

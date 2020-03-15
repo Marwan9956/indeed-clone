@@ -234,6 +234,37 @@ class User extends CI_Model{
 	}
 	
 	
+	
+	/**
+	 * Get Signle User
+	 * @return user object 
+	 */
+	
+	public function getSignleUser($user_id){
+		$this->db->select('users.id , first_name, last_name, username, users.email, countries.name as country_name , users.phone_number, users.resume_url, users.profile_img , users.company_id, current_status.name as current_status_name ,users.register_time');
+		$this->db->from('users');
+		$this->db->join('current_status', 'users.current_status_id = current_status.id' , 'inner');
+		$this->db->join('countries', 'users.country_code = countries.code' , 'LEFT OUTER');
+		$this->db->where('users.id' , $user_id);
+		$query = $this->db->get();
+		 $query = $query->row();
+		 if($query){
+		 	return $query;
+		 }else{
+		 	throw new database_exception('No User with this ID');
+		 }
+	}
+	
+	public function getCompanyName($comp_id){
+		$this->db->select('name');
+		$this->db->from('company');
+		$this->db->where('id' , $comp_id);
+		$query = $this->db->get();
+		$query = $query->row();
+		if($query){
+			return $query->name;
+		}
+	}
 }
 
 

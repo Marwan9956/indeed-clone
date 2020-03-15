@@ -9,14 +9,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 use \database_exception as database_exception;
 class Jobs_model extends CI_Model{
+	
 	public function __construct(){
 		parent::__construct();
 	}
 	
+	
+	/**
+	 * get the total count of jobs in jobs Table
+	 * @return int count of jobs
+	 */
 	public function jobsCountAll(){
 		return $this->db->count_all('jobs');
 	}
 	
+	/**
+	 * get the total count of jobs by search query  
+	 * @param string $q :query string
+	 * @return int count of jobs
+	 */
 	public function jobsCount($q){
 		$this->db->like('title',$q,'both');
 		$this->db->order_by('create_date','DESC');

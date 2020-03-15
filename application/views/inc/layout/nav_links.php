@@ -10,11 +10,18 @@
 				<a href="<?php echo base_url('member/jobpost');?>">
 					Employers / Post Job
 				</a>
+				<a href="<?php //echo base_url('profile/company/') . $this->session->userdata('user_id');?>"> 
+					Profile 
+				</a>
 			<?php else:?>
 				<a href="#">
 					Upload your resume
 				</a>
+				<a href="<?php echo base_url('profile/user/') . $this->session->userdata('user_id');?>"> 
+					Profile 
+				</a>
 			<?php endif;?>
+			
 		<?php endif;?>
 		
 		

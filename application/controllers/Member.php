@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+/**
+ * Handle all user functionality
+ * @author marwan
+ *
+ */
 class Member extends CI_Controller{
 	public function __construct(){
 		parent::__construct();

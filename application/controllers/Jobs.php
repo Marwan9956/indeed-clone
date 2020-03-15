@@ -5,8 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author marwan
  * 
  */
-use \database_exception as database_exception;
+
 class Jobs extends  CI_Controller{
+	
 	public  function __construct(){
 		parent::__construct();
 		$this->load->model('jobs_model');
@@ -25,6 +26,15 @@ class Jobs extends  CI_Controller{
 		$this->load->view('inc/main',$data);
 	}
 	
+	
+	/**
+	 * /jobs/search
+	 * implement Search functionality 
+	 * @param string q  : a query string search variable
+	 * @param string country
+	 * 
+	 * @return list jobs object 
+	 */
 	public function search(){
 		$q = $this->input->get('q' , true);
 		$country = $this->input->get('country' , true);
@@ -75,7 +85,10 @@ class Jobs extends  CI_Controller{
 		}
 	}
 	
-	
+	/**
+	 * Return single job 
+	 * @param job id  -> get Variables sent by ajax
+	 */
 	public function singleJob(){
 		$job_id = $this->input->get('job_id');
 		if(gettype(intval($job_id)) == 'integer'){
@@ -95,12 +108,10 @@ class Jobs extends  CI_Controller{
 	}
 	
 	
+	/**
+	 * Return Countries as json object for ajax request only
+	 */
 	public function countries(){
-		/*
-		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-		{
-			exit;
-		}*/
 		/**
 		 * Check if it is ajax request 
 		 */

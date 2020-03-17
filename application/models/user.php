@@ -255,6 +255,11 @@ class User extends CI_Model{
 		 }
 	}
 	
+	/**
+	 * Get Company Name by id
+	 * @param  $comp_id
+	 * @return company name
+	 */
 	public function getCompanyName($comp_id){
 		$this->db->select('name');
 		$this->db->from('company');
@@ -263,6 +268,91 @@ class User extends CI_Model{
 		$query = $query->row();
 		if($query){
 			return $query->name;
+		}
+	}
+	
+	/**
+	 * Get education list by 
+	 * @param unknown $user_id
+	 */
+	public function getEducationByUser($user_id){
+		$this->db->select('education_json');
+		$this->db->from('educations');
+		$this->db->where('user_id',$user_id);
+		$query = $this->db->get();
+		$query = $query->row();
+		return $query;
+	}
+	
+	/**
+	 * Get Experience list by
+	 * @param $user_id
+	 */
+	public function getExperienceByUser($user_id){
+		$this->db->select('Experience_json');
+		$this->db->from('experiences');
+		$this->db->where('user_id',$user_id);
+		$query = $this->db->get();
+		$query = $query->row();
+		return $query;
+	}
+	
+	
+	/**
+	 * Store Education for specific User
+	 * @param int $user_id
+	 * @param json $data
+	 */
+	public function storeEducation( $data ){
+		$user_id  = $this->session->userdata('user_id');
+		//check if there is a row with this user id 
+		if($this->checkFieldName('educations', 'user_id', $user_id)){
+			//update value
+			$this->db->set('education_json', $data);
+			$this->db->where('user_id', $user_id);
+			if($this->db->update('educations')){
+				return true;
+			}else{
+				throw new database_exception("We couldn't Update your data right now please try again later ");
+			}
+		}else{
+			//Insert new Row 
+			if($this->db->insert('educations',[
+					'user_id'        => $user_id,
+					'education_json' => $data
+			])){
+				return true;
+			}else{
+				throw new database_exception("We couldn't Store your data right now please try again later ");
+			}
+		}
+		
+	}
+	
+	
+	
+	public function storeExperience($data){
+		$user_id  = $this->session->userdata('user_id');
+		//check if there is a row with this user id
+		if($this->checkFieldName('experiences', 'user_id', $user_id)){
+			//update value
+			$this->db->set('Experience_json' , $data);
+			$this->db->where('user_id', $user_id);
+			if($this->db->update('experiences')){
+				return true;
+			}else{
+				throw new database_exception("We couldn't Update your data right now please try again later ");
+			}
+		}else{
+			//Insert new Row
+			if($this->db->insert('`experiences',[
+					'user_id'        => $user_id,
+					'Experience_json' => $data
+			])){
+				return true;
+			}else{
+				throw new database_exception("We couldn't Store your data right now please try again later ");
+			}
 		}
 	}
 }

@@ -67,7 +67,10 @@ class Register extends  CI_Controller{
 		],[
 				'field' => 'phoneNum',
 				'label' => 'Phone number',
-				'rules' => 'required|integer|min_length[9]'
+				'rules' => 'required|integer|min_length[9]',
+				"errors" => [
+						'integer' => 'Phone number must be in numbers only',
+				],
 		]);
 		
 		$this->form_validation->set_rules($config_validation);
@@ -146,11 +149,14 @@ class Register extends  CI_Controller{
 		],[
 				'field' => 'phoneNum',
 				'label' => 'Phone number',
-				'rules' => 'required|integer|min_length[9]'
+				'rules' => 'required|integer|min_length[9]',
+				"errors" => [
+						'integer' => 'Phone number must be in numbers only',
+				],
 		]);
 		
-		//$this->form_validation->set_rules($config_validation);
-		$this->form_validation->set_rules('name','Name','required');
+		$this->form_validation->set_rules($config_validation);
+		
 		if($this->form_validation->run() == false){
 			
 			$data['title']		  =  "Join As Company";

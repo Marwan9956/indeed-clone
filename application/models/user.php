@@ -216,6 +216,7 @@ class User extends CI_Model{
 		}else{
 			$data = [
 					'user_id'    => $user->id,
+					'company_type'=> 'true',
 					'name'       => $user->name ,
 					'logo_url'   => $user->logo_url,
 					'description'   => $user->description,
@@ -234,6 +235,110 @@ class User extends CI_Model{
 	}
 	
 	
+	/**
+	 * Update user Information
+	 * @param $user_id
+	 */
+	public function updateSingleUser($user_id){
+		
+		$firstName = $this->input->post('firstName');
+		$lastName  = $this->input->post('lastName');
+		$username  = $this->input->post('username');
+		$country_code = $this->input->post('country');
+		$company_id= $this->input->post('company');
+		$status_id = $this->input->post('status');
+		$phoneNum  = $this->input->post('phoneNum');
+		
+		$data = [
+				'first_name' => $firstName,
+				'last_name'  => $lastName,
+				'username'   => $username,
+				'country_code' =>$country_code,
+				'company_id'  => $company_id,
+				'current_status_id' => $status_id,
+				'phone_number' => $phoneNum
+		];
+		
+		$this->db->where('id' , $user_id);
+		if($this->db->update('users', $data)){
+			
+		}else{
+			throw new database_exception("We couldn't update your data try again later or contact admin.");
+		}
+		
+	}
+	
+	public function updateImg($imgName , $resumeName , $user_id){
+		$this->db->where('id',$user_id );
+		if(!empty($imgName) && !empty($resumeName)){
+			$data = [
+					'profile_img' => $imgName ,
+					'resume_url'  => $resumeName
+			];
+		}else if(!empty($imgName) && empty($resumeName)){
+			$data = [
+					'profile_img' => $imgName 
+			];
+			
+		}else if(empty($imgName) && !empty($resumeName)){
+			$data = [
+					'resume_url'  => $resumeName
+			];
+		}else{
+			throw new database_exception("You didn't upload data try again.");
+		}
+		
+		if($this->db->update('users' , $data )){
+			return true;
+		}else{
+			throw new database_exception("We couldn't update your data  try again later or contact admin.");
+		}
+	}
+	
+	/**
+	 * Change Password and Email for User
+	 * @throws database_exception
+	 */
+	public function changePassword_email(){
+		$user_id = $this->session->userdata('user_id');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+		
+		
+		if($email == $this->session->userdata('email') && !empty($password)){
+			$password = password_hash($password, PASSWORD_DEFAULT);
+			$data = [
+					'password' => $password
+			];
+		}elseif($email == $this->session->userdata('email') && empty($password)){
+			return ;
+		}elseif ($email !== $this->session->userdata('email') && empty($password)){
+			if($this->checkFieldName('users', 'email', $email)){
+				throw new database_exception('Email is already been used try another name');
+			}else{
+				$data = [
+						'email'  => $email
+				];
+			}
+		}
+		$this->db->where('id' , $user_id);
+		if($this->db->update('users',$data)){
+			return;
+		}else{
+			throw new database_exception("We couldn't update your data right now please try again later or contact admin .");
+		}
+		
+		/*
+		//1-Check user Email
+		if($this->checkFieldName('users', 'email', $email)){
+			
+		}*/
+		
+		
+		
+	}
+	
+	
 	
 	/**
 	 * Get Signle User
@@ -241,7 +346,7 @@ class User extends CI_Model{
 	 */
 	
 	public function getSignleUser($user_id){
-		$this->db->select('users.id , first_name, last_name, username, users.email, countries.name as country_name , users.phone_number, users.resume_url, users.profile_img , users.company_id, current_status.name as current_status_name ,users.register_time');
+		$this->db->select('users.id , first_name, last_name, username, users.email,users.country_code, countries.name as country_name , users.phone_number, users.resume_url, users.profile_img , users.company_id, current_status.name as current_status_name,users.current_status_id ,users.register_time');
 		$this->db->from('users');
 		$this->db->join('current_status', 'users.current_status_id = current_status.id' , 'inner');
 		$this->db->join('countries', 'users.country_code = countries.code' , 'LEFT OUTER');
@@ -329,7 +434,12 @@ class User extends CI_Model{
 		
 	}
 	
-	
+	/**
+	 * Add New Experience OR Update it if it is there 
+	 * @param  $data
+	 * @throws database_exception
+	 * @return boolean
+	 */
 	
 	public function storeExperience($data){
 		$user_id  = $this->session->userdata('user_id');
@@ -355,6 +465,78 @@ class User extends CI_Model{
 			}
 		}
 	}
+	
+	
+	/**
+	 * Get Company Data For single Company
+	 */
+	public function getSignleCompany( $company_id){
+		$this->db->select('company.id , company.name , company.logo_url  , company.description , company.email 
+							, company.website_url , company.phone_number ,
+							 countries.name as country_name,company.country_code  , industry.name as industry_name , company.industry_id,
+							 company.employee_count , company.create_date');
+		$this->db->from('company');
+		$this->db->join('countries' , 'company.country_code = countries.code','inner');
+		$this->db->join('industry' , 'company.industry_id = industry.id' , 'inner');
+		$this->db->where('company.id' , $company_id);
+		
+		$query = $this->db->get();
+		$query = $query->row();
+		
+		if($query){
+			return $query;
+		}else{
+			throw new database_exception('No Company With this ID ');
+		}
+		
+	}
+	
+	
+	/**
+	 * Return All Job posted by specific Company
+	 * @param  $company_id
+	 * @param  $limit
+	 * @param  $offset
+	 * @throws database_exception
+	 * @return list of jobs by company_id 
+	 */
+	public function getJoblistByCompany($company_id , $limit , $offset){
+		
+		$this->db->select('jobs.id , jobs.title , jobs.company_id , jobs.create_date , COUNT(candidate.user_id) as candidate_count_indeed');
+		$this->db->from('jobs');
+		$this->db->join('candidate','jobs.id = candidate.job_id' , 'LEFT');
+		$this->db->group_by('jobs.id');
+		$this->db->where('company_id' , $company_id);
+		$this->db->order_by('jobs.create_date');
+		$this->db->limit($limit,$offset);
+		$query = $this->db->get();
+		$query = $query->result();
+		if($query){
+			
+			return $query;
+		}else{
+			throw new database_exception('Database Error');
+		}
+	}
+	
+	
+	/**
+	 * Get Count number of jobs by company | For Pagination use 
+	 * @param unknown $com_id
+	 * @return unknown
+	 */
+	public function getCountJobsByCompany($com_id){
+		$this->db->select('COUNT(id) as countJob');
+		$this->db->from('jobs');
+		$this->db->where('company_id', $com_id);
+		$query = $this->db->get();
+		$query= $query->row();
+		return $query->countJob;
+	}
+	
+	
+	
+	
 }
 
 

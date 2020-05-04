@@ -4,10 +4,8 @@
 	<div class="container">
 		<!---Footer Nav--------------->
 		<nav class="nav-footer">
-			<a href="#">Browse Jobs</a>
-			<a href="#">Browse Companies</a>
+			<a href="<?php echo base_url();?>">Browse Jobs</a>
 			<a href="#">Work at Indeed</a>
-			<a href="#">Countries</a>
 			<a href="#">About</a>
 			<a href="#">Help Center</a>
 			<!---footer copyright&web title--------------->

@@ -2,20 +2,36 @@
 	margin-top:30px;
 }
 
-.employee-profile .small-txt{
-	font-size: 0.85em;
-	color: var(--span);
-	margin:2px 0;
+.employee-profile .main-txt{
+	font-size: 1.0em;
+	color: #4b4b4b;
+	margin:10px 0;
+	margin-left:20px;
 	padding:5px;
-	font-style: italic;
+	text-align:left;
 }
-
+.employee-profile .small-txt{
+	font-size: 1.0em;
+	color: #808080;
+	margin:10px 0;
+	margin-left:20px;
+	padding:5px;
+	text-align:left;
+}
+.employee-profile .profile_text_col_two{
+	display:flex;
+	flex-grow:1;
+}
+.employee-profile .profile_text_col_two > p{
+	flex-basis:50%;
+}
 .employee-profile header{
 	background-color: var(--very-light);
 	padding:25px;
 	border-radius:20px;
-	background:  -webkit-linear-gradient(top, rgba(0,0,0,0.10) 0%,rgba(0,0,0,0) 100%); 
-	/* Chrome10-25,Safari5.1-6 */
+	text-align:center;
+	width:55%;
+	margin: 0 auto;
 }
 
 .employee-profile img{
@@ -73,13 +89,124 @@
 .employee-profile h2{
 	color:var(--p);
 	margin:5px 0;
+	font-size:1.8em;
 }
 
 
+/*********************************************************************/
+/**************** Employee Profile**************/
+.btn-row{
+	display:block;
+	width:30%;
+	margin: 20px auto;
+	text-align:center;
+}
+.btn-row:hover{
+	margin: 20px auto;
+}
 
+.btn-profile{
+	
+}
 
+.company-page{
+	
+}
 
+.company-page header{
+		
+}
 
+.company-page nav{
+	display:flex;
+}
+
+.company-page nav > div{
+	display:block;
+	flex-basis:150px;
+	text-align:center;
+	margin:40px 0;
+	
+}
+
+.company-page nav a{
+	color:var(--h);
+	font-size:1em;
+}
+
+.company-page h3{
+	margin : 3px 2px;
+}
+
+.company-page h4{
+	margin : 3px 2px;
+	font-size: 0.9em;
+	font-weight:normal;
+	color:var(--span);
+}
+
+.company-page .rectangle{
+	width:100%;
+	height: 200px;
+	background: #f8f8f8;
+	border:var(--bor);
+	margin-top:8px;
+	margin-bottom:8px;
+	border-radius: 20px;
+}
+
+.com-prof-img{
+	width:65px;
+	height:65px;
+	border-radius:50px;
+}
+
+.company-info-sm{
+	display:flex;
+}
+.company-info-sm > div{
+	margin: 10px 18px;
+	box-sizing: border-box;
+}
+
+.company-info{
+	margin: 25px 0;
+	padding: 15px 5px;
+}
+
+.company-info h1{
+	margin: 15px 0 40px 0 ;
+	padding: 40px 0;
+	border-bottom: var(--bor);
+}
+
+.company-info h3{
+	margin-top: 15px;
+	margin-bottom: 25px;
+}
+
+.company-info p{
+	color:#646464;
+	font-size:0.93em;
+	margin-bottom: 25px;
+	width:50%;
+	line-height:1.4em;
+	text-align: justify;
+}
+
+.company-info a{
+	color:#189cb4;
+	padding:10px;
+	border:none;
+	margin:0;
+}
+
+.company-info a:hover{
+	border:none;
+	color:#1ec0dd;
+	padding:10px;
+	margin:0;
+}
 
 
 

@@ -1,11 +1,18 @@
+<?php 
+$name      = $this->input->post('name')      ? $this->input->post('name') : '';
+$email     = $this->input->post('email')     ? $this->input->post('email')     : '';
+$website   = $this->input->post('website')   ? $this->input->post('website')   : '';
+$phoneNum  = $this->input->post('phoneNum')  ? $this->input->post('phoneNum')  : '';
+$emp_count = $this->input->post('emp_count') ? $this->input->post('emp_count') : '4';
 
+?>
 <section class="main-col register-box">
 	<h2>Register Company:</h2>
 	<?php $this->load->view('inc/layout/message');?>
 	<?php echo form_open_multipart('register/company');?>
 		<div class="input-group">
 			<label for="name">Comapny name: </label>
-			<input type="text" name="name" value="" id="name" />
+			<input type="text" name="name"  id="name"  value="<?php echo $name;?>"/>
 		</div>
 		<div class="input-group">
 			<label for="password" >Password: </label>
@@ -19,7 +26,7 @@
 		
 		<div class="input-group">
 			<label for="email" >Email: </label>
-			<input type="email" name="email" id="email" />
+			<input type="email" name="email" id="email" value="<?php echo $email;?>" />
 		</div>
 		
 		<div class="input-group">
@@ -27,17 +34,18 @@
 			<input type="url" name="website" id="website"
 		       placeholder="https://example.com"
 		       pattern="https://.*" size="30"
+		       value="<?php echo $website;?>"
 		       required>
 		</div>
 		
 		<div class="input-group">
 			<label for="phoneNum">Phone number: </label>
-			<input type="text" id="phoneNum" name="phoneNum"   />
+			<input type="text" id="phoneNum" name="phoneNum"  value="<?php echo $phoneNum;?>" />
 		</div>
 		
 		<div class="input-group">
 			<label for="emp_count">Employee Count</label>
-			<input type="number" name="emp_count" id="emp_count"   min="4"  value ="4"/>
+			<input type="number" name="emp_count" id="emp_count"   min="4"  value ="<?php echo $emp_count;?>"/>
 		</div>
 		
 		<div class="input-group">

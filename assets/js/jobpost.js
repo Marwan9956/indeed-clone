@@ -12,7 +12,14 @@ $(document).ready(function(){
 	var required_Count = 1;
 	var nice_count = 1;
 	
-
+	
+	/* check if there is input already on the page */ 
+	var domRequired_Count = document.getElementById('required_Counts');
+	
+	if(domRequired_Count != null){
+		required_Count =  parseInt(domRequired_Count.value)  ;
+	}
+	
 	/**
 	 * Add new text box For Required Skills  
 	 */
@@ -23,6 +30,10 @@ $(document).ready(function(){
 	}));
 	
 	
+	var domNiceSkills_Count = document.getElementById('nice_skills_Counts');
+	if(domNiceSkills_Count !== null){
+		nice_count =  parseInt(domNiceSkills_Count.value) ;
+	}
 	/**
 	 * Add new text box For nice Skills  
 	 */
@@ -57,10 +68,10 @@ $(document).ready(function(){
 	 * 			alert message for user 
 	 */
 	function checkLimit(count){
-		if(count <= limit){
+		if(count < limit){
 			return true;
 		}else{
-			alert("you are allowed To add more then " + limit 
+			alert("you are NOT allowed To add more then " + limit 
 					+" add the rest on description");
 			return false;
 		}

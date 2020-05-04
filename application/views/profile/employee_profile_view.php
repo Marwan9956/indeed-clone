@@ -1,19 +1,38 @@
 
 <?php if(isset($user)):?>
+<?php 
+//$user->email
+$profile_img =  empty($user->profile_img) ?  base_url('assets/img/user_profile_default.jpg') : base_url('upload/user_profile/'.$user->profile_img);
+?>
 <script src='<?php echo base_url('assets/js/user_profile.js')?>'> </script>
 <link rel="stylesheet" href="<?php echo base_url('assets/css/profile.css');?>">
 <section class='employee-profile'>
 	<header>
-		<img alt="" src="<?php echo base_url('upload/user_profile/img.jpg')?>">
-		<h2><?php echo $user->first_name . ' '; ?> <?php echo $user->last_name; ?></h2>
-		<p class="small-txt"> <?php echo $user->current_status_name; ?></p>
-		<p class="small-txt"> <?php echo $user->country_name; ?> </p>
+		<img alt="" src="<?php echo $profile_img;?>">
+		<h2><?php echo ucfirst($user->first_name) . ' '; ?> <?php echo ucfirst($user->last_name); ?></h2>
+		
+		
 		<!-- IF There is company -->
 		<?php if($user_Company):?>
-			<p class="small-txt"> <?php echo $user_Company;; ?> </p>
+			<div class="profile_text_col_two">
+				<p class="main-txt">Work At :  </p> 
+				<p class="small-txt"><?php echo $user_Company;; ?> </p>
+			</div>
+			<div class="profile_text_col_two">
+				<p class="main-txt">Employment Status: </p>
+				<p class="small-txt"><?php echo $user->current_status_name; ?></p>
+			</div>
 		<?php endif;?>
-		<p class="small-txt"> <?php echo $user->email; ?></p>
+		<div class="profile_text_col_two">
+			<p class="main-txt">From: </p>
+			<p class="small-txt"><?php echo $user->country_name; ?> </p>
+		</div>
+		<a class="btn btn-signin btn-profile" href="mailto:<?php echo $user->email; ?>">Email Me</a>
 	</header>
+	
+	<!-- Error MESSAGES  -->
+	<?php $this->load->view('inc/layout/message');?>
+	
 	<!-- Education -->
 	<section id="Education-widget" class="widget">
 		<h2>Education</h2>
@@ -92,6 +111,17 @@
 		
 	</section>
 	
+	<?php if(!empty($user->resume_url)):?>
+	<div class="widget">
+		<h2>Resume:</h2>
+		<a href="<?php echo base_url('upload/user_resume/' . $user->resume_url);?>"class= "btn btn-signin">Resume Link </a>
+	</div>
+	<?php endif;?>
+	
+	<div class="widget">
+		<h2>Change Login Information:</h2>
+		<a href="<?php echo base_url('profile/change_password');?>"class= "btn btn-signin">Change   </a>
+	</div>
 	
 </section>
 <?php else:?>

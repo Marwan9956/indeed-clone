@@ -25,7 +25,9 @@ class Member extends CI_Controller{
 	 */
 	public function login($userType = ""){
 		//$config = [];
-		
+		if($this->session->has_userdata('user_id')){
+			redirect(base_url());
+		}
 		$this->form_validation->set_rules("userType" , "user Type" ,"required");
 		
 		$config = array(

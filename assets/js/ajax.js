@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	const HOSTNAME = "http://" + window.location.hostname + "/indeed";
+	
 	var displayTag = $('#display-single-job');
 	var jobPostSingleWidget = $('.job-post-single-widget');
 	
@@ -12,7 +14,8 @@ $(document).ready(function(){
 	 */
 	$(".job-post").on('click',function(e){
 		var job_id = $(this).attr('id');
-		var url = "http://localhost/indeed/jobs/singleJob?job_id=" + job_id;
+		//http://localhost/indeed
+		var url = HOSTNAME + "/jobs/singleJob?job_id=" + job_id;
 
 		subscription_widget.fadeOut();
 		displayTag.css('opacity','0');
@@ -106,45 +109,46 @@ $(document).ready(function(){
 	 *
 	 */
 	var countries = document.getElementById('searchCountries');
-	countries.addEventListener('keyup',function(e){
-		 
-		var key = countries.value;
-		var countriesURL = encodeURI("http://localhost/indeed/jobs/countries?key=" + key);
-		$.ajax({
-				type: 'get',
-				url  : countriesURL
-			}).done(function (data){
-				try{
-					$('#countriesList').remove();
-					data = JSON.parse(data);
-					var countriesDiv = '<div id="countriesList"> <ul>';
-					for(var i = 0 ; i < data.length; i++){
-						countriesDiv += '<li>' +  data[i].name  + '</li>'; 
+	if(countries !== null){
+		countries.addEventListener('keyup',function(e){
+			 
+			var key = countries.value;
+			var countriesURL = encodeURI(HOSTNAME + "/jobs/countries?key=" + key);
+			$.ajax({
+					type: 'get',
+					url  : countriesURL
+				}).done(function (data){
+					try{
+						$('#countriesList').remove();
+						data = JSON.parse(data);
+						var countriesDiv = '<div id="countriesList"> <ul>';
+						for(var i = 0 ; i < data.length; i++){
+							countriesDiv += '<li>' +  data[i].name  + '</li>'; 
+						}
+						var rect = countries.getBoundingClientRect();
+						var topPos = rect.top + rect.height;
+						var widthPos = rect.width + 82;
+						
+						countriesDiv += '</ul></div>';
+						
+						$(countriesDiv).insertAfter('#searchCountries')
+						.css({ 
+							'top' : topPos,
+							'width':widthPos
+							});
+					}catch(err){
+						//console.log('Not Json Data Error');
 					}
-					var rect = countries.getBoundingClientRect();
-					var topPos = rect.top + rect.height;
-					var widthPos = rect.width + 82;
-					
-					countriesDiv += '</ul></div>';
-					
-					$(countriesDiv).insertAfter('#searchCountries')
-					.css({ 
-						'top' : topPos,
-						'width':widthPos
-						});
-				}catch(err){
-					//console.log('Not Json Data Error');
-				}
-			}).fail(function(xhr, status, error) {
-				  //Ajax request failed.
-				  var errorMessage = xhr.status + ': ' + xhr.statusText
-				  console.log('Error - ' + errorMessage);
-			});
-			
-			
-		 e.preventDefault();
-	});
+				}).fail(function(xhr, status, error) {
+					  //Ajax request failed.
+					  var errorMessage = xhr.status + ': ' + xhr.statusText
+					  console.log('Error - ' + errorMessage);
+				});
+				
+				
+			 e.preventDefault();
+		});
 	 
-
+	}
 	 
 });

@@ -111,4 +111,46 @@ class Jobs_model extends CI_Model{
 			throw new database_exception('No Countries');
 		}
 	}
+	
+	/**
+	 * Subscribe New User to specific job search 
+	 * @throws database_exception
+	 * @return boolean
+	 */
+	public function subscribeUser(){
+		$user_id = $this->session->userdata('user_id');
+		$tableName = '';
+		$data = [];
+		$jobSearch = $this->input->post('searchJob');
+		if($this->session->has_userdata('user_id')){
+			$tableName = 'subscription';
+			$data = [
+					'user_id'    => $user_id,
+					'job_search' => $jobSearch
+			];
+			if($this->db->insert($tableName,$data)){
+				return true;	
+			}else{
+				throw new database_exception('Database Error Contact Admin.');
+			}
+		}else{
+			$tableName = 'subscription_nonmember';
+			$email = $this->input->post('email');
+			if(!empty($email) && !empty($jobSearch) && filter_var($email, FILTER_VALIDATE_EMAIL)){
+				$data = [
+						'email'      => $email,
+						'job_search' => $jobSearch
+				];
+				if($this->db->insert($tableName,$data)){
+					return true;
+				}else{
+					throw new database_exception('Database Error Contact Admin.');
+				}
+			}else{
+				throw new database_exception("You didn't provide valid data.");
+			}
+		}
+		
+		
+	}
 }

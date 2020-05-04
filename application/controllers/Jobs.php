@@ -53,8 +53,8 @@ class Jobs extends  CI_Controller{
 		$config['total_rows'] = $this->jobs_model->jobsCount($q);
 		$config['base_url'] = base_url('jobs/search?&q='. $q.'&country='. $country);
 		
-		$config['full_tag_open'] = '<p>';
-		$config['full_tag_close'] = '</p>';
+		$config['full_tag_open'] = '<div class="pagination-links">';
+		$config['full_tag_close'] = '</div>';
 		/*************************************************************/
 		
 		
@@ -63,7 +63,7 @@ class Jobs extends  CI_Controller{
 		/************************Initialize Pagination ************/
 		$this->pagination->initialize($config);
 		
-		
+		//Set variable if user is subscribe or not
 		
 		if($q == ''){
 			redirect(base_url());
@@ -134,4 +134,131 @@ class Jobs extends  CI_Controller{
 		
 	}
 	
+	/**
+	 * Edit Single Job post
+	 * @param int $job_id
+	 */
+	public function edit($job_id){
+		$company_type =  $this->session->userdata('company_type');
+		$user_id      =  $this->session->userdata('user_id');
+		$job = $this->jobs_model->getSingleJob($job_id);
+		$company_id_for_job = $job->company_id ;
+		
+		$config = array(
+				array(
+						'field' => 'title',
+						'label' => 'Job Title',
+						'rules' => 'required|min_length[4]'
+				),
+				array(
+						'field' => 'required_skills',
+						'label' => 'Required Skills',
+						'rules' => 'required|min_length[6]'
+				),
+				array(
+						'field' => 'nice_skills',
+						'label' => 'Nice skills',
+						'rules' => 'required|min_length[6]'
+				),
+				array(
+						'field' => 'description',
+						'label' => 'Description',
+						'rules' => 'required|min_length[20]'
+				)
+		);
+		
+		$this->form_validation->set_rules($config);
+		
+		
+		
+		
+		if($company_type == 'true'  && $user_id == $company_id_for_job){
+			if($this->form_validation->run() == false){
+				$data['title']		  =  "Edit Post";
+				$data['view_content'] =  'edit-job-post';
+				$data['job']          =  $job;
+				$this->load->view('inc/main',$data);
+			}else{
+				//Implement Update here 
+				try{
+					$this->company->updateJob($job_id);
+					$this->session->set_flashdata('msg' , 'Job Post has been updated successfully');
+					redirect(base_url('profile/company/') . $this->session->userdata('user_id'));
+				}catch (database_exception $e){
+					$this->session->set_flashdata('Err_msg' , $e->getMessage());
+					redirect(base_url('profile/company/') . $this->session->userdata('user_id'));
+					
+				}catch (Exception $e){
+					$this->session->set_flashdata('Err_msg' , 'Server Error');
+					redirect(base_url('profile/company/') . $this->session->userdata('user_id'));
+				}
+			}
+			
+		}else{
+			$this->session->set_flashdata('Err_msg' , 'You Are not allowed ');
+			redirect(base_url());
+		}
+	}
+	
+	
+	/**
+	 * handle subscribing of user in job search
+	 */
+	public function subscribe(){
+		$searchJob = $this->input->post('searchJob');
+		$country   = $this->input->post('country');
+		$url = base_url('jobs/search?q='. $searchJob .'&country=' . $country);
+		if($searchJob != null){
+			try{
+				$this->jobs_model->subscribeUser();
+				$this->session->set_flashdata('msg' , 'You Subscribed thank you we will inform you with new jobs .');
+				redirect($url);
+			}catch(database_exception $e){
+				$this->session->set_flashdata('Err_msg' , $e->getMessage());
+				redirect($url);
+			}catch (Exception $e){
+				$this->session->set_flashdata('Err_msg' , 'Server Error ');
+				redirect($url);
+			}
+			
+		}else{
+			redirect($url);
+		}
+	}
+	
+	
+	/**
+	 * Delete job post 
+	 */
+	public function delete($job_id){
+		$job          = $this->jobs_model->getSingleJob($job_id);
+		$company_id_for_job = $job->company_id ;
+		if($this->session->has_userdata('user_id')){
+			if($this->session->userdata('user_type') === 'company' && $this->session->userdata('user_id') === $company_id_for_job){
+				
+				$url = base_url('profile/company?comId=' . $company_id_for_job); //http://localhost/indeed/profile/company?comId=1
+				//delete job post
+				try{
+					
+					$this->company->delete($job_id);
+					$this->session->set_flashdata('msg' , 'Job Post deleted successuflly');
+					redirect($url);
+				}catch (database_exception $e){
+					$this->session->set_flashdata('Err_msg' , $e->getMessage());
+					redirect($url);
+				}catch (Exception $e){
+					$this->session->set_flashdata('Err_msg' , 'Server Error.');
+					redirect($url);
+				}
+			}else{
+				$this->session->set_flashdata('Err_msg',"You Are not allowed .");
+				redirect(base_url());
+			}
+			
+		}else{
+			$this->session->set_flashdata('Err_msg',"You Are not allowed .");
+			redirect(base_url());
+		}
+		
+	}
 }

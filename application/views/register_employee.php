@@ -1,19 +1,26 @@
+<?php 
+$firstName = $this->input->post('firstName') ? $this->input->post('firstName') : '';
+$lastName  = $this->input->post('lastName')  ? $this->input->post('lastName')  : '';
+$userName  = $this->input->post('username')  ? $this->input->post('username')  : '';
+$email     = $this->input->post('email')     ? $this->input->post('email')     : '';
+$phoneNum  = $this->input->post('phoneNum')  ? $this->input->post('phoneNum')  : '';
 
+?>
 <section class="main-col register-box">
 	<h2>Register:</h2>
 	<?php $this->load->view('inc/layout/message');?>
 	<?php echo form_open_multipart('register/employee');?>
 		<div class="input-group">
 			<label for="firstName">First name: </label>
-			<input type="text" name="firstName" value="" id="firstName" />
+			<input type="text" name="firstName" value="<?php echo $firstName;?>" id="firstName" />
 		</div>
 		<div class="input-group">
 			<label for="lastName">Last name: </label>
-			<input type="text" name="lastName"  id="lastName"/>
+			<input type="text" name="lastName"  id="lastName" value="<?php echo $lastName;?>" />
 		</div>
 		<div class="input-group">
 			<label for="username" >Username: </label>
-			<input type="text" name="username" id="username"  />
+			<input type="text" name="username" id="username"  value="<?php echo $userName;?>"/>
 		</div>
 		<div class="input-group">
 			<label for="password" >Password: </label>
@@ -25,7 +32,7 @@
 		</div>
 		<div class="input-group">
 			<label for="email" >Email: </label>
-			<input type="email" name="email" id="email" />
+			<input type="email" name="email" id="email" value="<?php echo $email;?>"/>
 		</div>
 		<div class="input-group">
 			<label> Country </label>
@@ -61,7 +68,7 @@
 		<?php endif;?>
 		<div class="input-group">
 			<label for="phoneNum">Phone number: </label>
-			<input type="text" id="phoneNum" name="phoneNum"   />
+			<input type="text" id="phoneNum" name="phoneNum"  value="<?php echo $phoneNum;?>" />
 		</div>
 		
 		<div class="input-file-group">

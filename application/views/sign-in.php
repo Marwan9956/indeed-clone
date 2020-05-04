@@ -1,7 +1,7 @@
 <section class="sign-in-section">
 	
 	<section class="sign-in-widget">
-		<div class="logo">Indeed Logo</div>
+		<div class="logo"><img class="logo" src="<?php echo base_url('assets/img/indeedLogo.jpg')?>" /></div>
 		<?php $this->load->view("inc/layout/message");?>
 		<form action="<?php echo base_url("member/login");?>" method="post">
 			<h3>Sign In</h3>
@@ -33,10 +33,10 @@
 			<input type="submit" value="Sign in" name="sign-in" class="btn btn-signin btn-signin-primary" />
 			
 			<hr>
-			<p>or</p>
+			<div class="center-text"><p>or</p></div>
 			<hr>
-			<a href="#" class="btn btn-signin" > Sign in with Google   </a>
-			<a href="#" class="btn btn-signin" > Sign in with Facebook </a>
+			<a href="#" class="btn btn-signin Not_implement"  > Sign in with Google   </a>
+			<a href="#" class="btn btn-signin Not_implement"  > Sign in with Facebook </a>
 		</form>
 	</section>
 </section>

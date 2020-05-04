@@ -91,3 +91,31 @@ function industries(){
 	$query = $CI->db->get();
 	return $query->result();
 }
+
+
+
+
+/*
+ *  is User subscribed or Not
+ * 
+ */
+function isUserSubscribe(){
+	$CI = & get_instance();
+	if($CI->session->has_userdata('user_id')){
+		
+		$user_id = $CI->session->userdata('user_id');
+		$CI->db->select('*');
+		$CI->db->from('subscription');
+		$CI->db->where('user_id' , $user_id);
+		$query = $CI->db->get();
+		$query = $query->row();
+		if($query != null){
+			return true;
+		}else{
+			return false;
+		}
+		
+	}else{
+		return false;		
+	}
+}

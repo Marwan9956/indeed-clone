@@ -590,17 +590,17 @@ input[type="file"] {
 /***********************single Job Widget **********************/
 #display-single-job{
 	opacity:0;
-	transition: all 0.4s ease-in-out;
+	transition: opacity 0.25s ease-in-out , top 0.05s ease-in-out ;
 	position:fixed;
 	border:var(--bor);
 	border-radius:var(--bor-radius);
-	padding:15px;
+	padding: 5px 15px;
 	margin: 10px 0 ;
 	margin-right:10px;
-	bottom:10px;
-	top:35%;
+	top:20%;
 	overflow:auto;
-	height:460px;
+	min-height:460px;
+	max-height:100%;
 	box-sizing:border-box;
 	z-index:4;
 }

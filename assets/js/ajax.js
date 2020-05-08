@@ -6,6 +6,7 @@ $(document).ready(function(){
 	
 	var subscription_widget = $('.subscription-widget');
 	var cls;
+	var applyOnComapny ;
 	
 	/**
 	 * Make and ajax request 
@@ -46,6 +47,14 @@ $(document).ready(function(){
 		e.preventDefault();
 	});
 	
+	//Apply For Job 
+	$(document).on('click','#applyOnCompany',function(e){
+		alert('Here you go to company web Site to apply for Job ');
+		e.preventDefault();
+		e.stopPropagation();
+	});
+	
+	
 	
 	
 	
@@ -82,15 +91,17 @@ $(document).ready(function(){
 			templeate += '<li>'+ tmp[i] +'</li>';
 		}
 		templeate += '</ul>';
-
-		templeate += '<ul>';
 		
-		var tmp = result.nice_to_have_skills.split('|');
-		for(var i= 0; i< tmp.length; i++){
-			templeate += '<li>'+ tmp[i] +'</li>';
+		if(result.nice_to_have_skills !== ''){
+			tmp = result.nice_to_have_skills.split('|');
+			templeate += '<ul>';
+			for(var i= 0; i< tmp.length; i++){
+				templeate += '<li>'+ tmp[i] +'</li>';
+			}
+			templeate += '</ul>';
 		}
-		templeate += '</ul>';
-
+		//Add Apply Button 
+		templeate += '<div> <button id="applyOnCompany" class="btn btn-primary">Apply On Company Site </button> </div>'
 		templeate += '<div class="job-post-footer">';
 		templeate += '<p>'+ result.create_date +' 30+ days ago .</p>';
 			
@@ -102,6 +113,8 @@ $(document).ready(function(){
 		templeate += '</div>';
 		return templeate;
 	}
+	
+	
 	
 	
 	/*
@@ -150,5 +163,18 @@ $(document).ready(function(){
 		});
 	 
 	}
-	 
+	
+	
+	
+	
+	/*************************ADJUST CSS  Height of JOB POST ***************/
+	// check if page scroll
+	 $(window).scroll(function(){
+		 if($(window).scrollTop() === 0){
+			$('#display-single-job').css('top','20%');
+		 }else if($(window).scrollTop() > 155) {
+			$('#display-single-job').css('top','1%');
+		 }
+		 
+	 });
 });

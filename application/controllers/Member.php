@@ -102,6 +102,13 @@ class Member extends CI_Controller{
 	 * @return ///redirect
 	 */
 	public function jobpost(){
+		/*
+		 array(
+						'field' => 'nice_skills',
+						'label' => 'Nice skills',
+						'rules' => 'required|min_length[6]'
+				),
+		 */
 		$config = array(
 				array(
 						'field' => 'title',
@@ -114,14 +121,9 @@ class Member extends CI_Controller{
 						'rules' => 'required|min_length[6]'
 				),
 				array(
-						'field' => 'nice_skills',
-						'label' => 'Nice skills',
-						'rules' => 'required|min_length[6]'
-				),
-				array(
 						'field' => 'description',
 						'label' => 'Description',
-						'rules' => 'required|min_length[20]'
+						'rules' => 'required|min_length[10]'
 				)
 		);
 		

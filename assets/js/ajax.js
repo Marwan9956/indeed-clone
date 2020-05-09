@@ -1,5 +1,12 @@
 $(document).ready(function(){
-	const HOSTNAME = "http://" + window.location.hostname + "/indeed";
+	//Define HostName 
+	var HOSTNAME = window.location.hostname;
+	
+	if(window.location.hostname === 'localhost' || window.location.hostname === 'marwansaleh.epizy.com'){
+		HOSTNAME = "http://" + window.location.hostname + "/indeed" + '/';
+	}else{
+		HOSTNAME = "https://" + window.location.hostname + "/indeed" + '/';
+	}
 	
 	var displayTag = $('#display-single-job');
 	var jobPostSingleWidget = $('.job-post-single-widget');
@@ -13,6 +20,7 @@ $(document).ready(function(){
 	 * to get a single job post  
 	 * 
 	 */
+	 
 	$(".job-post").on('click',function(e){
 		var job_id = $(this).attr('id');
 		//http://localhost/indeed

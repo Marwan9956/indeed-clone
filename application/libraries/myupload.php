@@ -1,7 +1,7 @@
 <?php
-if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class myupload {
+class Myupload {
 	private  $CI = '';
 	
 	public function __construct(){
@@ -20,6 +20,8 @@ class myupload {
 		 * setting upload configuration
 		 * @var string $config
 		 */
+		//$CI = & get_instance();
+		//$CI->load->library('upload');
 		//$CI =& get_instance();
 		
 		
@@ -53,14 +55,17 @@ class myupload {
 		$config['allowed_types'] = 'pdf|docx';
 		$config['max_size']     = '2048';
 		
-		
+		//$CI = & get_instance();
+		//$CI->load->library('upload');
 		
 		
 		
 		$this->CI->upload->initialize($config);
+		//$CI->upload->initialize($config);
 		if($this->CI->upload->do_upload($fieldName)){
 			//store profile img
 			$resume = $this->CI->upload->data('file_name');
+			//$resume = $CI->upload->data('file_name');
 		}else{
 			$resume= '';
 		}

@@ -55,9 +55,13 @@ class Jobs extends  CI_Controller{
 		
 		$config['full_tag_open'] = '<div class="pagination-links">';
 		$config['full_tag_close'] = '</div>';
+
+		$config['cur_tag_open'] = '<strong class="current-page-link">';
+		$config['cur_tag_close'] = '</strong>';
 		/*************************************************************/
 		
-		
+		$data['totalJobsCount'] = $config['total_rows'];
+		$data['lastPage']       = ceil(intval($config['total_rows']) / 10); 
 		$data['title']		  =  "Job Search";
 		$data['view_content'] = 'search';
 		/************************Initialize Pagination ************/

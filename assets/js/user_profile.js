@@ -1,7 +1,13 @@
 $(document).ready(function(){
 	//Dom Element
 	//var WebSiteURL = 'http://localhost/indeed/';
-	var WebSiteURL = "http://" + window.location.hostname + "/indeed" + '/';
+	//var WebSiteURL = "https://" + window.location.hostname + "/indeed" + '/';
+	if(window.location.hostname === 'localhost' || window.location.hostname === 'marwansaleh.epizy.com'){
+		var WebSiteURL = "http://" + window.location.hostname + "/indeed" + '/';
+	}else{
+		var WebSiteURL = "https://" + window.location.hostname + "/indeed" + '/';
+	}
+	
 	var Btn_AddEducation = $('#add_education' , '.employee-profile');
 	var Btn_SaveEducation = $('#save_education' , '.employee-profile');
 	var educationCount = 0;

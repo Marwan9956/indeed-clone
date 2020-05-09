@@ -1,3 +1,11 @@
+<?php 
+$currentPageNumber = $this->input->get('start'); 
+if(!empty($currentPageNumber)){
+	$currentPageNumber = (intval($currentPageNumber) + 10 ) / 10; 
+}else{
+	$currentPageNumber = '1';
+}
+?>
 <script src="<?php echo base_url('assets/js/ajax.js');?>"> </script>
 <div class="row">
 	<section class="search-box sm-search-box">
@@ -25,8 +33,8 @@
 			- Let employers find you
 		</p>
 		<hr>
-		<span> Page 1 of 10 </span>
-		<span> Total jobs count 19,200 jobs </span>
+		<span><?php echo 'Page ' .  $currentPageNumber . ' of '  .  $lastPage; ?> </span>
+		<span> Total jobs count <?php echo  $totalJobsCount . ' ';  ?>jobs </span>
 		<?php if($jobs):?>
 			<!-- Here is the loop -->
 			<?php $this->load->view('inc/widgets/job-post-small-widget');?>

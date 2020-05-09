@@ -348,7 +348,8 @@ ul li{
 
 .sm-search-box input[type='text']{
 	padding:0;
-	
+	padding-left:10px;
+	box-sizing:border-box;
 }
 .sm-search-box input[type='text']::placeholder{
 	font-size:0.8em;

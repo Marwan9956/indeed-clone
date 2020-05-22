@@ -14,6 +14,7 @@ if(!empty($currentPageNumber)){
 </div>
 <div class="row-col-3">
 	<div>
+		<!--
 		<div class="sort">
 			<h5>Sort by:</h5>
 			<a href="#">relevance </a>
@@ -26,6 +27,7 @@ if(!empty($currentPageNumber)){
 			-
 			<a href="#"> ...</a>
 		</div>
+		-->
 	</div>
 	<div class="col-main">
 		<p>

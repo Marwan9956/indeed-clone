@@ -54,6 +54,7 @@ class User extends CI_Model{
 		
 		if(!$this->db->insert('users',$data)){
 			throw new database_exception("Database Error try again you didn't register ");
+			die();
 		}
 		
 		

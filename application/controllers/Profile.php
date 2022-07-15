@@ -136,7 +136,7 @@ class Profile extends CI_Controller{
 				$img_path = './upload/user_profile';
 				$imgName  = 'profile_img';
 				
-				$this->load->library('myupload');
+				
 				$result       =  $this->myupload->upload_img($img_path, $imgName);
 				$resultResume =  $this->myupload->upload_user_resume();
 				$redirectURL  =  base_url('profile/user/' . $user_id);

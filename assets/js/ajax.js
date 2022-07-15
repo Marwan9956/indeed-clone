@@ -1,11 +1,12 @@
 $(document).ready(function(){
-	//Define HostName 
+	//Define HostName
+	//https://indeed.marwansaleh.com/ 
 	var HOSTNAME = window.location.hostname;
 	
 	if(window.location.hostname === 'localhost' || window.location.hostname === 'marwansaleh.epizy.com'){
 		HOSTNAME = "http://" + window.location.hostname + "/indeed" + '/';
 	}else{
-		HOSTNAME = "https://" + window.location.hostname + "/indeed" + '/';
+		HOSTNAME = "https://indeed" + window.location.hostname +  '/';
 	}
 	
 	var displayTag = $('#display-single-job');
@@ -24,7 +25,7 @@ $(document).ready(function(){
 	$(".job-post").on('click',function(e){
 		var job_id = $(this).attr('id');
 		//http://localhost/indeed
-		var url = HOSTNAME + "/jobs/singleJob?job_id=" + job_id;
+		var url = HOSTNAME + "jobs/singleJob?job_id=" + job_id;
 
 		subscription_widget.fadeOut();
 		displayTag.css('opacity','0');
@@ -134,7 +135,7 @@ $(document).ready(function(){
 		countries.addEventListener('keyup',function(e){
 			 
 			var key = countries.value;
-			var countriesURL = encodeURI(HOSTNAME + "/jobs/countries?key=" + key);
+			var countriesURL = encodeURI(HOSTNAME + "jobs/countries?key=" + key);
 			$.ajax({
 					type: 'get',
 					url  : countriesURL

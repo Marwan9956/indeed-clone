@@ -2,10 +2,12 @@ $(document).ready(function(){
 	//Dom Element
 	//var WebSiteURL = 'http://localhost/indeed/';
 	//var WebSiteURL = "https://" + window.location.hostname + "/indeed" + '/';
+	//https://indeed.marwansaleh.com/ 
+	var WebSiteURL = "";
 	if(window.location.hostname === 'localhost' || window.location.hostname === 'marwansaleh.epizy.com'){
-		var WebSiteURL = "http://" + window.location.hostname + "/indeed" + '/';
+		WebSiteURL = "http://" + window.location.hostname + "/indeed" + '/';
 	}else{
-		var WebSiteURL = "https://" + window.location.hostname + "/indeed" + '/';
+		WebSiteURL = "https://indeed" + window.location.hostname +  '/';
 	}
 	
 	var Btn_AddEducation = $('#add_education' , '.employee-profile');

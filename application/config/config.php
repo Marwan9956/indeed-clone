@@ -23,12 +23,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+//indeed.marwansaleh.com   https://indeed.marwansaleh.com/ https://marwansaleh.com/
 if($_SERVER['SERVER_NAME'] === 'localhost'){
 	$config['base_url'] = 'http://localhost/indeed/';
-}else if($_SERVER['SERVER_NAME'] === 'marwansaleh.000webhostapp.com'){
-	$config['base_url'] = 'https://marwansaleh.000webhostapp.com/indeed/' ;
-}else if($_SERVER['SERVER_NAME'] === 'marwansaleh.epizy.com'){
-	$config['base_url'] = 'http://marwansaleh.epizy.com/indeed/' ;
+}else{
+	$config['base_url'] = 'https://indeed.marwansaleh.com/' ;
 }
 
 /*
@@ -229,7 +228,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0;
+$config['log_threshold'] = 1;
 
 /*
 |--------------------------------------------------------------------------

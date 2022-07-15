@@ -75,5 +75,12 @@ $(document).ready(function(){
 		 
 		 
 	 });
+	 
+	 /*
+	  *		Implement select list item from country list 
+	  *		country value to input id - #searchCountries   --  list countries id #countriesList li value  
+	  *
+	  */
 	
+	//On click Event 
 });
